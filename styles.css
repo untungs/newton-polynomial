@@ -1,0 +1,27 @@
+table, th, td {
+  border: 1px solid #999;
+}
+table {
+  border-collapse: collapse;
+}
+th {
+  padding: 5px 10px;
+}
+th {
+  background-color: #ddd;
+}
+td {
+  min-width: 25px;
+}
+.datatable input {
+  border: none;
+  padding: 5px;
+  height: 20px;
+  width: 50px;
+}
+#cari_x {
+  border: none;
+  border-bottom: 1px solid #999;
+  width: 40px;
+  text-align: center;
+}
