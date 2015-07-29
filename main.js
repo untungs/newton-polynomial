@@ -52,33 +52,33 @@ function updateData() {
 */
 function NewtonInt(x, y, n, xi) {
     // inisialisasi koefisien b dan interpolasi pada sumbu y
-    var b = [],
-        yint = [],
-        ea = [];
+    var fdd = [], // finite divided-difference table
+        yint = [], // computed y axis on nth-order interpolating polynomial
+        ea = []; // estimated error
     
     // kolom 1: y
     for (var i = 0; i < n; i++) {
         var line = [y[i]];
-        b.push(line);
+        fdd.push(line);
     }
   
     // kolom 2: orde ke-1, kolom 3: orde ke-2, dst
     for (var j = 1; j < n; j++) {
         for (var i = 0; i < n-j; i++) {
-            b[i][j] = (b[i+1][j-1] - b[i][j-1]) / (x[i+j] - x[i]);
+            fdd[i][j] = (fdd[i+1][j-1] - fdd[i][j-1]) / (x[i+j] - x[i]);
         }
     }
     
     var xterm = 1;
-    yint[0] = b[0][0];
+    yint[0] = fdd[0][0];
   
     for (var orde = 1; orde < n; orde++) {
         xterm = xterm * (xi - x[orde-1]);
-        var yint2 = yint[orde-1] + b[0][orde] * xterm;
+        var yint2 = yint[orde-1] + fdd[0][orde] * xterm;
         ea[orde-1] = yint2 - yint[orde-1];
         yint[orde] = yint2;
     }
-    console.log(b);
+    console.log(fdd);
     console.log(yint);
     console.log(ea);
 }
