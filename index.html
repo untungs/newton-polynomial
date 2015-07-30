@@ -6,6 +6,7 @@
   <script type="text/javascript" src="main.js"></script>
 </head>
 <body>
+  
   <table class="datatable">
     <tr id="row_i">
       <th>i</th>
@@ -17,14 +18,15 @@
       <th>y<sub>i</sub> = f(x<sub>i</sub>)</th>
     </tr>
   </table>
-
-  <p>n = <output id="n"></output></p>
-  <p>Soal:<br>
-    Tafsir f(<input type="text" id="cari_x">) menggunakan orde ke <output id="orde"></output>
-  </p>
-  <div>
-    <output id="debug"></output>
+  
+  <h3>Soal</h3>
+  <p>Tafsir f(<input type="text" id="cari_x">) menggunakan orde ke <input id="orde"></p>
+  
+  <button id="polynom">Jawab!</button>
+  
+  <div id="solution">
+    <h3>Solusi</h3>
   </div>
-  <button id="polynom">Polynom!</button>
+  
 </body>
 </html>

@@ -1,9 +1,11 @@
 var banyakKolom = function () {
-    return document.getElementById('row_i').childElementCount - 1; // <th> tidak ikut dihitung
-},
-
-    dataX = [],
-    dataY = [];
+        return document.getElementById('row_i').childElementCount - 1; // <th> tidak ikut dihitung
+    },
+    dataX = [], // data points on x axis
+    dataY = [], // data points on y axis
+    fdd = [], // finite divided-difference table
+    yint = [], // computed y axis on nth-order interpolating polynomial
+    ea = []; // estimated error
 
 
 function tambahKolom(awal, n) {
@@ -28,11 +30,6 @@ function tambahKolom(awal, n) {
     }
 }
 
-function updateSoal() {
-    document.getElementById('n').innerHTML = banyakKolom();
-    document.getElementById('orde').innerHTML = banyakKolom() - 1;  
-}
-
 function updateData() {
     dataX = [];
     dataY = [];
@@ -40,8 +37,53 @@ function updateData() {
         dataX.push(parseFloat(document.getElementById('x_' + i).value));
         dataY.push(parseFloat(document.getElementById('y_' + i).value));
     }
-    console.log(dataX);
-    console.log(dataY);
+}
+
+function tulisSolusi(orde, x) {
+    var box = document.getElementById('solution');
+    
+    buatTabel(orde);
+    
+    var p = document.createElement('p');
+    p.appendChild(document.createTextNode('f(' + x + ') = ' + yint[yint.length-1]));
+    box.appendChild(p);
+    
+    function buatTabel(orde) {
+        var tbl = document.createElement('table'),
+            thead = tbl.createTHead(),
+            trh = thead.insertRow(),
+            th,
+            tbody = document.createElement('tbody'),
+            tr,
+            td;
+
+        // create header
+        trh.innerHTML = '<th>i</th><th>x<sub>i</sub></th><th>f(x<sub>i</sub>)</sub>';
+        for (var i = 1; i <= orde; i++) {
+            th = document.createElement('th');
+            th.appendChild(document.createTextNode('Orde ke-' + i));
+            trh.appendChild(th);
+        }
+
+        // create rows
+        tbl.appendChild(tbody);
+        for (var i = 0; i <= orde; i++) {
+            tr = tbody.insertRow();
+
+            td = tr.insertCell();
+            td.appendChild(document.createTextNode(i));
+
+            td = tr.insertCell();
+            td.appendChild(document.createTextNode(dataX[i]));
+
+            for (var j = 0; j <= orde; j++) {
+                td = tr.insertCell();
+                td.innerHTML = fdd[i][j] !== undefined ? fdd[i][j] : '';
+            }
+        }
+
+        box.appendChild(tbl);
+    }
 }
 
 /*
@@ -51,10 +93,12 @@ function updateData() {
     @param xi: data yang dicari pada sumbu x
 */
 function NewtonInt(x, y, n, xi) {
-    // inisialisasi koefisien b dan interpolasi pada sumbu y
-    var fdd = [], // finite divided-difference table
-        yint = [], // computed y axis on nth-order interpolating polynomial
-        ea = []; // estimated error
+    var orde = banyakKolom() - 1;
+    
+    // reset
+    fdd = [],
+    yint = [],
+    ea = [];
     
     // kolom 1: y
     for (var i = 0; i < n; i++) {
@@ -72,20 +116,21 @@ function NewtonInt(x, y, n, xi) {
     var xterm = 1;
     yint[0] = fdd[0][0];
   
-    for (var orde = 1; orde < n; orde++) {
-        xterm = xterm * (xi - x[orde-1]);
-        var yint2 = yint[orde-1] + fdd[0][orde] * xterm;
-        ea[orde-1] = yint2 - yint[orde-1];
-        yint[orde] = yint2;
+    for (var o = 1; o < n; o++) {
+        xterm = xterm * (xi - x[o-1]);
+        var yint2 = yint[o-1] + fdd[0][o] * xterm;
+        ea[o-1] = yint2 - yint[o-1];
+        yint[o] = yint2;
     }
     console.log(fdd);
     console.log(yint);
     console.log(ea);
+    
+    tulisSolusi(orde, xi);
 }
 
 window.onload = function() {
     tambahKolom(banyakKolom(), 4);
-    updateSoal();
 
     // attach event
     for (var i = 0; i < banyakKolom(); i++) {

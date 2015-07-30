@@ -19,7 +19,7 @@ td {
   height: 20px;
   width: 50px;
 }
-#cari_x {
+input {
   border: none;
   border-bottom: 1px solid #999;
   width: 40px;
