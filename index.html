@@ -4,23 +4,30 @@
   <title>Newton's Divided-difference Interpolating Polynomials</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
   <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML">
+  </script>
 </head>
 <body>
   
   <table class="datatable">
-    <tr id="row_i">
-      <th>i</th>
-    </tr>
-    <tr id="row_x">
-      <th>x<sub>i</sub></th>
-    </tr>
-    <tr id="row_y">
-      <th>y<sub>i</sub> = f(x<sub>i</sub>)</th>
-    </tr>
+    <thead>
+      <tr id="row_i">
+        <th>`i`</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="row_x">
+        <th>`x_i`</th>
+      </tr>
+      <tr id="row_y">
+        <th>`y_i = f(x_i)`</th>
+      </tr>
+    </tbody>
   </table>
   
   <h3>Soal</h3>
-  <p>Tafsir f(<input type="text" id="cari_x">) menggunakan orde ke <input id="orde"></p>
+  <p>Tafsir `f(`<input type="text" id="cari_x">`)` menggunakan orde ke <input id="orde"></p>
   
   <button id="polynom">Jawab!</button>
   

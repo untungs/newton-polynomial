@@ -45,7 +45,7 @@ function tulisSolusi(orde, x) {
     buatTabel(orde);
     
     var p = document.createElement('p');
-    p.appendChild(document.createTextNode('f(' + x + ') = ' + yint[yint.length-1]));
+    p.appendChild(document.createTextNode('`f(' + x + ') = ' + yint[yint.length-1] + '`'));
     box.appendChild(p);
     
     function buatTabel(orde) {
@@ -58,7 +58,7 @@ function tulisSolusi(orde, x) {
             td;
 
         // create header
-        trh.innerHTML = '<th>i</th><th>x<sub>i</sub></th><th>f(x<sub>i</sub>)</sub>';
+        trh.innerHTML = '<th>`i`</th><th>`x_i`</th><th>`f(x_i)`</th>';
         for (var i = 1; i <= orde; i++) {
             th = document.createElement('th');
             th.appendChild(document.createTextNode('Orde ke-' + i));
@@ -84,6 +84,8 @@ function tulisSolusi(orde, x) {
 
         box.appendChild(tbl);
     }
+
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 }
 
 /*
