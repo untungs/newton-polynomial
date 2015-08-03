@@ -1,3 +1,2 @@
 # Optimization
-- updateData: Change the only corresponding index when inputting into data points
 
