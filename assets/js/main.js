@@ -87,6 +87,10 @@ function writeSolution() {
     box.appendChild(createFddTable(NewtonInt.points(), NewtonInt.fdd()));
     
     p = document.createElement('p');
+    p.appendChild(document.createTextNode(NewtonInt.genF(NewtonInt.order())));
+    box.appendChild(p);
+    
+    p = document.createElement('p');
     p.appendChild(document.createTextNode('`f_' + NewtonInt.order() + '(' + xi + ') = ' +
                                           NewtonInt.yint(NewtonInt.order()) + '`'));
     box.appendChild(p);

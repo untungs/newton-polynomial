@@ -71,14 +71,34 @@ var NewtonInt = (function () {
         ea = [];
     }
     
+    /** */
+    function generateFormula(order) {
+        var f, i, j;
+        
+        f = 'f_' + order + '(x)=';
+        
+        for (i = 0; i <= order; i += 1) {
+            f += 'b_' + i;
+            for (j = 0; j < i; j += 1) {
+                f += '(x-x_' + j + ')';
+            }
+            if (i !== order) { f += '+'; }
+        }
+        
+        f = '`' + f + '`';
+        
+        return f;
+    }
+    
     return {
-        points: function () { return dataPoints; },
-        fdd:    function () { return fdd; },
-        yint:   function (order) { return yint[order]; },
-        ea:     function () { return ea; },
-        order:  function () { return order; },
+        points:   function () { return dataPoints; },
+        fdd:      function () { return fdd; },
+        yint:     function (order) { return yint[order]; },
+        ea:       function () { return ea; },
+        order:    function () { return order; },
         addPoint: addPoint,
-        calc: calc,
-        reset: reset
+        calc:     calc,
+        reset:    reset,
+        genF:     generateFormula
     };
 }());
